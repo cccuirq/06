@@ -19,10 +19,13 @@ And so on, and so forth
 
 (* ****** ****** *)
 
-(*
-val the_ln2_stream: real stream = fn() => ...
-*)
-
-(* ****** ****** *)
+val the_ln2_stream: real stream = fn() => 
+    let
+        fun help(sum:real, i:int) = 
+            if i > 1 then if i mod 2 = 0 then strcon_cons(sum - 1.0/real(i), fn () => help(sum - 1.0/real(i), i+1)) else strcon_cons (sum + 1.0/real(i), fn () => help(sum + 1.0/real(i), i+1))
+            else strcon_cons (sum, fn () => help(sum, i+1))
+    in
+        help(1.0, 1)
+    end
 
 (* end of [CS320-2023-Spring-assign06-01.sml] *)
